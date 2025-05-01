@@ -1,0 +1,1 @@
+Experimenting with containers to get the patter [R package](https://github.com/edwardlavender/patter) (and [Julia friends](https://github.com/edwardlavender/patter.jl)) up and running with as little pain as possible.
