@@ -1,0 +1,36 @@
+# alpine doesnt work due to missing libjpeg.so.62
+# FROM rhub/r-minimal AS r
+
+FROM julia:alpine 
+RUN JULIA_LIB=$(LD_LIBRARY_PATH="" julia -e 'println(joinpath(dirname(Sys.BINDIR), "lib", "julia"))') \
+  && export LD_LIBRARY_PATH="${JULIA_LIB:?}:${LD_LIBRARY_PATH}"
+
+RUN julia -e 'using Pkg; Pkg.add("HDF5")'
+
+# hwloc needed for HDF5
+# RUN apk add hwloc libsz openmpi-dev
+# COPY --from=r /usr/local /usr/local
+# COPY --from=r /usr/lib /usr/lib
+# ENV TZ=UTC
+
+# # need for R
+# RUN apk add --no-cache libgfortran xz-libs libcurl libpcrecpp libbz2 pcre2 make readline
+
+# # need libgit2 > v1.9
+# RUN apk update \
+#   && apk add libblastrampoline --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing/ \
+#   && apk add libgit2-dev suitesparse-dev openlibm --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community \
+#   && apk add g++ libssh2-dev curl-dev libbz2 libarrow
+
+# RUN installr -d \
+#   -t "proj-dev gdal-dev gdal-tools sqlite-dev geos-dev" \
+#   -a "proj gdal geos" \
+#   JuliaCall Rcppcore/Rcpp edwardlavender/patter
+
+# RUN Rscript -e "JuliaCall::julia_setup(installJulia = FALSE)"
+# # RUN Rscript -e "patter::julia_connect()"
+
+
+
+# ln -s /usr/lib/libbz2.so.1 /usr/lib/libbz2.so.1.0
+# apk add libthrift=0.21.0-r0 --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
