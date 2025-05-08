@@ -2,7 +2,7 @@ Experimenting with containers to get the patter [R package](https://github.com/e
 
 - Dockerfile-test is Ubuntu noble with Julia 1.11.5 and R 4.5.0 installed via r2u. 2.07GB
   - `docker pull ghcr.io/mhpob/patter:test` or
-  - `docker build -f Dockerfile-test -t patter:alpine .`
+  - `docker build -f Dockerfile-test -t patter:ubuntu .`
 - Dockerfile is the same, but also has Patter.jl and dependencies installed (via Julia), as well as the patter R package and dependencies. Julia has already been connected to R via `JuliaCall::julia_setup()`. 3.18GB
   - `docker pull ghcr.io/mhpob/patter:ubuntu` or
   - `docker build -f Dockerfile -t patter:alpine .`
