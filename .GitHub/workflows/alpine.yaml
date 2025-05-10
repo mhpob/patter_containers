@@ -1,0 +1,17 @@
+on:
+  push:
+  workflow_dispatch:
+
+name: docker
+
+permissions: read-all
+
+jobs:
+  alpine:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          docker build -t test-alpine -f Dockerfile-alpine .
+      - run: |
+          docker run --rm -it test-alpine julia -e "using Pkg; Pkg.add('HDF5');"
